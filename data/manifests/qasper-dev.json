@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "dataset": "qasper",
+  "version": "0.3",
+  "split": "dev",
+  "source_file": "qasper-dev-v0.3.json",
+  "source_sha256": "2ae7ee62a65b1c4225791c70de80c2aad4e8998cf1fd4f09a53103db4f21af93",
+  "chunking": {
+    "size_words": 180,
+    "overlap_words": 30
+  },
+  "counts": {
+    "papers": 281,
+    "paragraphs": 13547,
+    "chunks": 14176
+  },
+  "output_sha256": {
+    "paragraphs.jsonl": "b80cb73f74ef83115ad7b748e80a7cc2509361565a312e0af6b6851e65c4ed38",
+    "corpus.jsonl": "56defa21bc41d929a10033cce2a42df60dc2842bcd67ddf018fd327808a126e6"
+  }
+}
