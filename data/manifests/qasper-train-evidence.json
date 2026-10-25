@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "dataset": "qasper",
+  "split": "train",
+  "source_file": "qasper-train-v0.3.json",
+  "source_sha256": "9458bfe76074a8fa8d1685af02bcc73537aa6d338ad20591dfaff1946bc88bf4",
+  "input_sha256": {
+    "paragraphs.jsonl": "937050b9bbce680d716edc092683de735ce15817556a49f59e64dcab34fd8775",
+    "corpus.jsonl": "2d6fc00efb122ee440e603853d33e72386f183297ef1c9fc1e3905d51bf0e8b9",
+    "manifest.json": "3f222524dec29e5a7bb1b7ba22ee7c6ebb10c0361e7fbf002b7769fd3735ca52"
+  },
+  "counts": {
+    "questions": 2593,
+    "annotations": 2675,
+    "questions_with_mapped_evidence": 2098,
+    "questions_with_all_evidence_mapped": 1836,
+    "answerability": {
+      "answerable": 2315,
+      "disagreement": 7,
+      "unanswerable": 271
+    },
+    "evidence_statuses": {
+      "ambiguous": 6,
+      "exact": 3528,
+      "figure_or_table": 386,
+      "section_heading": 147,
+      "whitespace_match": 142
+    }
+  },
+  "output_sha256": {
+    "queries.jsonl": "47db8ea6474048d85590407ac3f431f55a0655507894c5a0f296b93ad9ef184a",
+    "gold.jsonl": "ea54ee1537c90099a1f5ee3d1cf8fbce1a6d1941f547243e80f2512bcd1d70db",
+    "evidence_audit.jsonl": "566fcb8ba68e4bb16e5cae635a539840d110f78e968c2808dad1530512b30ec4"
+  }
+}
