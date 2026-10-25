@@ -1,0 +1,4 @@
+# Direct dependencies for exploratory data analysis.
+# The preprocessing scripts themselves use only the Python standard library.
+ipykernel==7.4.0
+matplotlib==3.11.2
