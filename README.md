@@ -99,3 +99,35 @@ under `data/manifests/` record reproducible dataset builds.
 
 See [the preprocessing reference](docs/preprocessing.md) for ID relationships,
 evidence-matching rules, limitations, experiment conventions, and manifest usage.
+
+## Dense retrieval
+
+Embed a prepared split with `BAAI/bge-m3` and build an exact FAISS index, then
+retrieve the top 100 chunks for every question:
+
+```bash
+python scripts/build_dense_index.py \
+  --processed-dir data/processed/qasper/train \
+  --output-dir data/indexes/qasper-train-bge-m3
+
+python scripts/dense_retrieve.py \
+  --index-dir data/indexes/qasper-train-bge-m3 \
+  --processed-dir data/processed/qasper/train \
+  --output runs/qasper-train/dense-bge-m3.jsonl
+```
+
+The model accepts up to 8,192 tokens; the longest QASPER chunk is about 1,100,
+so no chunk is truncated. The index builder refuses to run if any chunk would
+exceed the model limit. Embeddings are normalized, so scores are cosine
+similarities. The first run downloads the model (about 2.3 GB).
+
+Each line of the run file is one retrieved chunk:
+
+```json
+{"query_id": "qasper:...", "chunk_id": "qasper:...", "rank": 1, "score": 0.71, "latency_ms": 18.4}
+```
+
+`latency_ms` is per query (query encoding plus index search, after a warm-up
+query) and repeats on each of that query's rows. A `.manifest.json` next to the
+run records the model, device, latency summary, and checksums. Indexes and runs
+are excluded from Git.
