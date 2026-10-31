@@ -100,6 +100,28 @@ under `data/manifests/` record reproducible dataset builds.
 See [the preprocessing reference](docs/preprocessing.md) for ID relationships,
 evidence-matching rules, limitations, experiment conventions, and manifest usage.
 
+## Sparse retrieval (BM25)
+
+Build a BM25 index over the same corpus used for dense retrieval, then retrieve
+the top 100 chunks for every question:
+
+```bash
+python scripts/build_bm25_index.py \
+  --processed-dir data/processed/qasper/train \
+  --output-dir data/indexes/qasper-train-bm25
+
+python scripts/bm25_retrieve.py \
+  --index-dir data/indexes/qasper-train-bm25 \
+  --processed-dir data/processed/qasper/train \
+  --output runs/qasper-train/bm25.jsonl
+```
+
+The implementation lowercases Unicode word tokens and uses BM25 with `k1=1.5`
+and `b=0.75` by default. The index and retrieval commands verify checksums so
+an index cannot be accidentally used with a different corpus. The run uses the
+same JSONL schema as dense retrieval: `query_id`, `chunk_id`, `rank`, `score`,
+and `latency_ms`.
+
 ## Dense retrieval
 
 Embed a prepared split with `BAAI/bge-m3` and build an exact FAISS index, then
