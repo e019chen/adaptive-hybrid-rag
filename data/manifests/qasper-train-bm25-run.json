@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "retriever": "bm25",
+  "tokenizer": "regex-lower",
+  "k1": 1.5,
+  "b": 0.75,
+  "split": "train",
+  "top_k": 100,
+  "counts": {
+    "queries": 2593
+  },
+  "latency_ms": {
+    "mean": 9.791,
+    "p50": 9.586,
+    "p95": 17.981
+  },
+  "input_sha256": {
+    "queries.jsonl": "47db8ea6474048d85590407ac3f431f55a0655507894c5a0f296b93ad9ef184a",
+    "bm25_index_manifest.json": "5ec3a1847e8682b75e3f2c32cf454f6a21ae33a8ba1e38cb8b134cda3d010ec8"
+  },
+  "output_sha256": {
+    "bm25.jsonl": "aa378db8d129922186d2ea9ca9c6c56f8a7c7713b7eb5c7cb757eb374df5fe8d"
+  }
+}

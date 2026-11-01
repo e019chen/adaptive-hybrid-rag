@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "retriever": "dense",
+  "model": "BAAI/bge-m3",
+  "device": "mps:0",
+  "split": "train",
+  "top_k": 100,
+  "counts": {
+    "queries": 2593
+  },
+  "latency_ms": {
+    "mean": 23.555,
+    "p50": 23.67,
+    "p95": 24.94
+  },
+  "input_sha256": {
+    "queries.jsonl": "47db8ea6474048d85590407ac3f431f55a0655507894c5a0f296b93ad9ef184a",
+    "dense_index_manifest.json": "6333c4cedd40c61b57d7d15ce01ab003c5ac324c31b5be583968ad60e135b732"
+  },
+  "output_sha256": {
+    "dense-bge-m3.jsonl": "b319a20392d1e77361b7f19c9f21b1479c057d8d4514e7a9fa898d732b7801f9"
+  }
+}

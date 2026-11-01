@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "dataset": "qasper",
+  "split": "train",
+  "eligibility": "all-evidence-mapped",
+  "eligible_queries": 1836,
+  "credit_granularity": "paragraph",
+  "percentile_estimator": "nearest-rank",
+  "padding_policy": "auto",
+  "recall_at": [
+    1,
+    5,
+    10,
+    20,
+    100
+  ],
+  "mrr_at": 10,
+  "input_sha256": {
+    "corpus.jsonl": "2d6fc00efb122ee440e603853d33e72386f183297ef1c9fc1e3905d51bf0e8b9",
+    "queries.jsonl": "47db8ea6474048d85590407ac3f431f55a0655507894c5a0f296b93ad9ef184a",
+    "gold.jsonl": "ea54ee1537c90099a1f5ee3d1cf8fbce1a6d1941f547243e80f2512bcd1d70db",
+    "manifest.json": "3f222524dec29e5a7bb1b7ba22ee7c6ebb10c0361e7fbf002b7769fd3735ca52",
+    "evidence_manifest.json": "a8de26314cdbb39b7525e296a0c18b34629d41f17c166890ee29bcd044248012",
+    "bm25/bm25.jsonl": "aa378db8d129922186d2ea9ca9c6c56f8a7c7713b7eb5c7cb757eb374df5fe8d",
+    "bm25/bm25.manifest.json": "95c83bfa275cfdd5e3ef07d1245ce63e55cc060d59edac26c1a1a2a1653bf661",
+    "dense-bge-m3/dense-bge-m3.jsonl": "b319a20392d1e77361b7f19c9f21b1479c057d8d4514e7a9fa898d732b7801f9",
+    "dense-bge-m3/dense-bge-m3.manifest.json": "0ad124f00a2caac30da6ec2995f1e0fc3d1db3599266b2a71842f896ef9ca02c"
+  },
+  "output_sha256": {
+    "retrieval-baselines.json": "d03d56cd3053e046b7c292cec6b88c67a7c263aa9c3c38c6c9105dda4d46ad19",
+    "bm25/bm25.jsonl": "d996b2a842ba66b08bd31bc5756749bc418c0a980129a0a4c735705884f0da09",
+    "dense-bge-m3/dense-bge-m3.jsonl": "87d98012289b00d3d95db464984bb719bddb1b59c5f11cadf2a2a9197b05bc8d"
+  }
+}

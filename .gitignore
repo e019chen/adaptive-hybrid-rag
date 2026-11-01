@@ -6,3 +6,4 @@
 /data/processed/
 /data/indexes/
 /runs/
+__pycache__/

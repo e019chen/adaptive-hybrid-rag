@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "dataset": "qasper",
+  "split": "train",
+  "retriever": "bm25",
+  "corpus_sha256": "2d6fc00efb122ee440e603853d33e72386f183297ef1c9fc1e3905d51bf0e8b9",
+  "tokenizer": "regex-lower",
+  "k1": 1.5,
+  "b": 0.75,
+  "average_document_length": 71.90095439239674,
+  "counts": {
+    "chunks": 50189,
+    "terms": 47344
+  },
+  "output_sha256": {
+    "bm25_index.json": "4ac6041f88853b658c98798b1ec363e9f3718416248a4bce3a163f1d8f0ed760",
+    "chunk_ids.json": "d71a65315e4339afdbbfbb30ed0d630fdf1ec3bea75a82e555ecea5b0c1a3e0d"
+  }
+}

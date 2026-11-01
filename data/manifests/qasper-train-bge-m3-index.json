@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "dataset": "qasper",
+  "split": "train",
+  "corpus_sha256": "2d6fc00efb122ee440e603853d33e72386f183297ef1c9fc1e3905d51bf0e8b9",
+  "model": "BAAI/bge-m3",
+  "device": "mps:0",
+  "max_seq_length": 8192,
+  "max_chunk_tokens": 1061,
+  "embedding_dim": 1024,
+  "similarity": "cosine (IndexFlatIP, normalized)",
+  "counts": {
+    "chunks": 50189
+  },
+  "encode_seconds": 2253.1,
+  "output_sha256": {
+    "index.faiss": "01f8487ebced7228133b8412eda4e8b06491d4ae89829f620f262f1060120c40",
+    "chunk_ids.json": "d71a65315e4339afdbbfbb30ed0d630fdf1ec3bea75a82e555ecea5b0c1a3e0d"
+  }
+}

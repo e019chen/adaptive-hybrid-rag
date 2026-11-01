@@ -153,3 +153,72 @@ Each line of the run file is one retrieved chunk:
 query) and repeats on each of that query's rows. A `.manifest.json` next to the
 run records the model, device, latency summary, and checksums. Indexes and runs
 are excluded from Git.
+
+## Sparse retrieval
+
+Build a BM25 index over a prepared split and retrieve the top 100 chunks for
+every question. Both scripts use only the Python standard library:
+
+```bash
+python scripts/build_bm25_index.py \
+  --processed-dir data/processed/qasper/train \
+  --output-dir data/indexes/qasper-train-bm25
+
+python scripts/bm25_retrieve.py \
+  --index-dir data/indexes/qasper-train-bm25 \
+  --processed-dir data/processed/qasper/train \
+  --output runs/qasper-train/bm25.jsonl
+```
+
+Run files use the same schema as dense retrieval, so both are scored by the
+same evaluator. Change `--k1`, `--b`, or `--tokenizer` on the index builder;
+retrieval reads those settings from the index manifest rather than the command
+line. When fewer than `--top-k` chunks share a term with the query, the run is
+padded with `score` 0.0 rows ordered by `chunk_id`; those rows are not
+retrievals and the evaluator drops them.
+
+## Evaluate runs
+
+Score one or more run files against the annotated evidence paragraphs:
+
+```bash
+python scripts/eval_retrieval.py \
+  --processed-dir data/processed/qasper/train \
+  --run bm25=runs/qasper-train/bm25.jsonl \
+  --run dense-bge-m3=runs/qasper-train/dense-bge-m3.jsonl \
+  --index-dir bm25=data/indexes/qasper-train-bm25 \
+  --index-dir dense-bge-m3=data/indexes/qasper-train-bge-m3 \
+  --reference-manifest data/manifests/qasper-train.json \
+  --output runs/qasper-train/eval/retrieval-baselines.json \
+  --per-query-dir runs/qasper-train/eval/per-query
+```
+
+Scoring several runs in one invocation is what makes them comparable: they are
+forced to share one eligible question set, one chunk-to-paragraph fold, and one
+latency estimator. Each `--index-dir` is optional and verifies that the run came
+from an index built on this exact corpus; without it the evaluator only checks
+that every retrieved `chunk_id` exists in the corpus.
+
+**Credit is attributed per paragraph, not per chunk.** Retrieved chunks are
+folded onto their `paragraph_id`, keeping each paragraph's best rank, before
+anything is scored. Overlapping chunks from one gold paragraph are a single
+evidence item, so `k` counts distinct paragraphs. `recall_at_chunk_depth` in the
+summary applies the same cutoffs at chunk depth instead; the two agree at the
+largest `k`.
+
+The default `--eligibility all-evidence-mapped` scores only questions whose
+every evidence entry mapped unambiguously to a paragraph (1,836 of 2,593 on
+train). The summary records the policy, the eligible count, and one mutually
+exclusive exclusion reason per remaining question. `--eligibility
+any-evidence-mapped` widens this to every question with at least one mapped
+paragraph (2,098 on train) for a sensitivity check; its recall denominators come
+from an incomplete gold set, so it does not belong in a headline table.
+
+Latency percentiles are recomputed here with a single nearest-rank estimator
+over one `latency_ms` per eligible query. The percentiles each retrieval script
+writes into its own run manifest use different estimators and must not be
+compared with each other.
+
+Outputs are a summary JSON, a `.manifest.json` beside it recording every input
+and output checksum, and one JSONL per run under `--per-query-dir` for error
+analysis. The script refuses to overwrite existing outputs.

@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "dataset": "qasper",
+  "split": "train",
+  "credit_granularity": "paragraph",
+  "percentile_estimator": "nearest-rank",
+  "padding_policy": "auto",
+  "recall_at": [
+    1,
+    5,
+    10,
+    20,
+    100
+  ],
+  "mrr_at": 10,
+  "eligibility": {
+    "policy": "all-evidence-mapped",
+    "eligible_queries": 1836,
+    "total_queries": 2593,
+    "mean_gold_paragraphs": 1.605,
+    "excluded_queries": 757,
+    "excluded_by_reason": {
+      "annotation_without_evidence": 85,
+      "answerability:disagreement": 7,
+      "answerability:unanswerable": 271,
+      "unmapped_evidence:ambiguous": 6,
+      "unmapped_evidence:figure_or_table": 319,
+      "unmapped_evidence:section_heading": 69
+    },
+    "partially_mapped_excluded": 262
+  },
+  "runs": {
+    "bm25": {
+      "retriever": "bm25",
+      "top_k": 100,
+      "provenance": "index-manifest-chain",
+      "padding_dropped_rows": 0,
+      "metrics": {
+        "recall_at": {
+          "1": 0.026218,
+          "5": 0.101837,
+          "10": 0.141893,
+          "20": 0.191797,
+          "100": 0.292415
+        },
+        "recall_at_chunk_depth": {
+          "1": 0.026218,
+          "5": 0.09984,
+          "10": 0.141711,
+          "20": 0.191213,
+          "100": 0.292415
+        },
+        "hit_rate_at": {
+          "1": 0.036492,
+          "5": 0.127996,
+          "10": 0.171569,
+          "20": 0.226035,
+          "100": 0.342593
+        },
+        "mrr_at_10": 0.074189
+      },
+      "diagnostics": {
+        "mean_distinct_paragraphs": 98.923,
+        "mean_scored_rows": 100.0
+      },
+      "latency_ms": {
+        "mean": 9.571,
+        "p50": 9.363,
+        "p95": 17.759
+      },
+      "tokenizer": "regex-lower",
+      "k1": 1.5,
+      "b": 0.75
+    },
+    "dense-bge-m3": {
+      "retriever": "dense",
+      "top_k": 100,
+      "provenance": "index-manifest-chain",
+      "padding_dropped_rows": 0,
+      "metrics": {
+        "recall_at": {
+          "1": 0.059359,
+          "5": 0.149252,
+          "10": 0.191465,
+          "20": 0.235277,
+          "100": 0.348135
+        },
+        "recall_at_chunk_depth": {
+          "1": 0.059359,
+          "5": 0.148639,
+          "10": 0.189831,
+          "20": 0.234006,
+          "100": 0.348135
+        },
+        "hit_rate_at": {
+          "1": 0.071895,
+          "5": 0.175926,
+          "10": 0.227124,
+          "20": 0.277233,
+          "100": 0.401961
+        },
+        "mrr_at_10": 0.116471
+      },
+      "diagnostics": {
+        "mean_distinct_paragraphs": 99.079,
+        "mean_scored_rows": 100.0
+      },
+      "latency_ms": {
+        "mean": 23.473,
+        "p50": 23.669,
+        "p95": 24.944
+      },
+      "model": "BAAI/bge-m3",
+      "device": "mps:0"
+    }
+  }
+}
